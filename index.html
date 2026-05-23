@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DentaSmile – Clínica Dental Integral | Monterrey, NL</title>
+<meta name="description" content="DentaSmile, clínica dental de confianza en Monterrey, NL. Ortodoncia, implantes, blanqueamiento y más. Agenda tu cita hoy.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+:root{
+  --bg:#F0F9FF;--bg2:#fff;--card:#fff;
+  --p:#0891B2;--p2:#06B6D4;--dk:#0F2044;
+  --w:#fff;--txt:#0F2044;--mu:#64748B;
+  --bord:rgba(8,145,178,.12);
+  --grad:linear-gradient(135deg,#0891B2,#06B6D4);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{font-family:'Inter',sans-serif;background:var(--bg);color:var(--txt);line-height:1.6;overflow-x:hidden}
+h1,h2,h3,h4{font-family:'Poppins',sans-serif;line-height:1.2}
+
+/* Scroll progress */
+#progress-bar{position:fixed;top:0;left:0;height:3px;width:0%;background:var(--grad);z-index:9999;transition:width .1s linear}
+
+/* Nav */
+nav{position:sticky;top:0;z-index:900;background:#fff;border-bottom:1.5px solid var(--bord);box-shadow:0 2px 16px rgba(8,145,178,.06)}
+.nav-inner{max-width:1200px;margin:0 auto;padding:0 24px;height:68px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.nav-logo{font-family:'Poppins',sans-serif;font-size:1.25rem;font-weight:700;color:var(--dk);text-decoration:none;display:flex;align-items:center;gap:8px;white-space:nowrap}
+.nav-logo span.tooth{font-size:1.4rem}
+.nav-links{display:flex;gap:4px;align-items:center}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--mu);text-decoration:none;padding:6px 14px;border-radius:8px;transition:all .2s}
+.nav-links a:hover{color:var(--p);background:rgba(8,145,178,.07)}
+.nav-cta{background:var(--grad);color:#fff;border:none;padding:9px 20px;border-radius:10px;font-family:'Poppins',sans-serif;font-size:.875rem;font-weight:600;cursor:pointer;text-decoration:none;transition:opacity .2s,transform .2s;white-space:nowrap}
+.nav-cta:hover{opacity:.88;transform:translateY(-1px)}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px}
+.hamburger span{display:block;width:24px;height:2px;background:var(--dk);border-radius:2px;transition:all .3s}
+
+/* Hero */
+#hero{min-height:92vh;background:linear-gradient(135deg,#E0F2FE 0%,#F0F9FF 40%,#E0F7FA 100%);display:flex;align-items:center;padding:60px 0;position:relative;overflow:hidden}
+.hero-deco{position:absolute;font-size:3rem;opacity:.07;user-select:none;pointer-events:none}
+.hero-deco.d1{top:8%;left:4%;font-size:4rem}
+.hero-deco.d2{top:20%;right:6%;font-size:2.5rem}
+.hero-deco.d3{bottom:15%;left:8%;font-size:2rem}
+.hero-deco.d4{bottom:25%;right:3%;font-size:3.5rem}
+.hero-deco.d5{top:50%;left:46%;font-size:1.8rem}
+.container{max-width:1200px;margin:0 auto;padding:0 24px}
+.hero-grid{display:grid;grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(8,145,178,.1);border:1px solid rgba(8,145,178,.25);color:var(--p);padding:6px 16px;border-radius:50px;font-size:.8rem;font-weight:600;letter-spacing:.04em;text-transform:uppercase;margin-bottom:20px}
+.hero-badge::before{content:"✦";font-size:.7rem}
+h1.hero-title{font-size:clamp(2.4rem,5vw,3.5rem);font-weight:800;color:var(--dk);margin-bottom:18px;letter-spacing:-.02em}
+h1.hero-title span{color:var(--p)}
+.hero-sub{font-size:1.05rem;color:var(--mu);margin-bottom:32px;max-width:430px;line-height:1.7}
+.hero-btns{display:flex;gap:14px;flex-wrap:wrap}
+.btn-primary{background:var(--grad);color:#fff;padding:13px 26px;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:600;font-size:.95rem;text-decoration:none;transition:transform .2s,box-shadow .2s;display:inline-flex;align-items:center;gap:8px;box-shadow:0 4px 18px rgba(8,145,178,.28)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(8,145,178,.38)}
+.btn-outline{border:2px solid var(--p);color:var(--p);padding:11px 24px;border-radius:12px;font-family:'Poppins',sans-serif;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .2s;display:inline-flex;align-items:center;gap:8px}
+.btn-outline:hover{background:var(--p);color:#fff}
+
+/* Stats card */
+.stats-card{background:#fff;border-radius:24px;padding:36px 32px;box-shadow:0 20px 60px rgba(8,145,178,.15),0 4px 16px rgba(0,0,0,.06);border:1.5px solid var(--bord);animation:float 4s ease-in-out infinite;position:relative}
+.stats-card::before{content:'';position:absolute;inset:-2px;border-radius:26px;background:var(--grad);opacity:.08;z-index:-1}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.stats-header{text-align:center;margin-bottom:28px}
+.stats-header .big-emoji{font-size:3rem;display:block;margin-bottom:8px}
+.stats-header p{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.05rem;color:var(--dk)}
+.stats-grid{display:grid;gap:16px}
+.stat-item{display:flex;align-items:center;gap:14px;padding:14px 16px;background:var(--bg);border-radius:12px;border:1px solid var(--bord)}
+.stat-icon{font-size:1.6rem;flex-shrink:0}
+.stat-num{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.4rem;color:var(--p);display:block;line-height:1}
+.stat-label{font-size:.8rem;color:var(--mu);font-weight:500}
+
+/* Sections */
+.section{padding:90px 0}
+.section-alt{background:#fff}
+.section-head{text-align:center;margin-bottom:56px}
+.section-eyebrow{font-size:.78rem;font-weight:700;color:var(--p);text-transform:uppercase;letter-spacing:.08em;margin-bottom:10px}
+.section-title{font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:700;color:var(--dk);margin-bottom:14px}
+.section-sub{font-size:1rem;color:var(--mu);max-width:540px;margin:0 auto;line-height:1.7}
+
+/* Service cards */
+.services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.service-card{background:var(--card);border-radius:18px;padding:28px;border:1.5px solid var(--bord);transition:transform .28s,box-shadow .28s,border-color .28s;position:relative;overflow:hidden}
+.service-card::before{content:'';position:absolute;inset:0;background:var(--grad);opacity:0;transition:opacity .28s;z-index:0}
+.service-card:hover{transform:translateY(-6px);box-shadow:0 16px 48px rgba(8,145,178,.16);border-color:var(--p)}
+.service-card>*{position:relative;z-index:1}
+.svc-icon{font-size:2.4rem;margin-bottom:14px;display:block}
+.svc-name{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.05rem;color:var(--dk);margin-bottom:4px}
+.svc-price{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.1rem;color:var(--p);margin-bottom:10px}
+.svc-desc{font-size:.875rem;color:var(--mu);line-height:1.6;margin-bottom:18px}
+.svc-btn{display:inline-block;font-size:.82rem;font-weight:600;color:var(--p);text-decoration:none;padding:7px 16px;border:1.5px solid var(--bord);border-radius:8px;transition:all .2s;font-family:'Poppins',sans-serif}
+.svc-btn:hover{background:var(--p);color:#fff;border-color:var(--p)}
+
+/* Why us */
+.why-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+.why-card{background:var(--card);border-radius:18px;padding:28px 20px;border:1.5px solid var(--bord);text-align:center;transition:transform .25s,box-shadow .25s}
+.why-card:hover{transform:translateY(-5px);box-shadow:0 12px 36px rgba(8,145,178,.14)}
+.why-icon{font-size:2.2rem;margin-bottom:12px}
+.why-big{font-family:'Poppins',sans-serif;font-weight:800;font-size:1.9rem;color:var(--p);margin-bottom:6px}
+.why-title{font-family:'Poppins',sans-serif;font-weight:600;font-size:.95rem;color:var(--dk);margin-bottom:6px}
+.why-desc{font-size:.825rem;color:var(--mu);line-height:1.6}
+
+/* Doctors */
+.doctors-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
+.doctor-card{background:var(--card);border-radius:20px;padding:36px 24px;border:1.5px solid var(--bord);text-align:center;transition:transform .25s,box-shadow .25s}
+.doctor-card:hover{transform:translateY(-5px);box-shadow:0 14px 42px rgba(8,145,178,.13)}
+.doc-avatar{font-size:4rem;width:90px;height:90px;background:linear-gradient(135deg,#E0F2FE,#BAE6FD);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 18px;border:3px solid var(--bord)}
+.doc-name{font-family:'Poppins',sans-serif;font-weight:700;font-size:1.1rem;color:var(--dk);margin-bottom:4px}
+.doc-spec{font-size:.85rem;font-weight:600;color:var(--p);margin-bottom:10px;display:block}
+.doc-bio{font-size:.845rem;color:var(--mu);line-height:1.6}
+
+/* Testimonials */
+.testi-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.testi-card{background:var(--card);border-radius:18px;padding:28px;border:1.5px solid var(--bord);transition:transform .25s,box-shadow .25s}
+.testi-card:hover{transform:translateY(-4px);box-shadow:0 10px 32px rgba(8,145,178,.12)}
+.stars{color:#F59E0B;font-size:1.1rem;margin-bottom:14px;letter-spacing:2px}
+.testi-quote{font-size:.91rem;color:var(--txt);line-height:1.7;font-style:italic;margin-bottom:18px}
+.testi-author{display:flex;align-items:center;gap:12px}
+.author-avatar{width:42px;height:42px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;color:#fff;flex-shrink:0}
+.author-name{font-family:'Poppins',sans-serif;font-weight:600;font-size:.9rem;color:var(--dk)}
+.author-tag{font-size:.78rem;color:var(--mu)}
+
+/* CTA Section */
+#contacto{background:var(--dk);padding:90px 0;text-align:center;position:relative;overflow:hidden}
+#contacto::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;background:rgba(8,145,178,.12);border-radius:50%}
+#contacto::after{content:'';position:absolute;bottom:-80px;left:-40px;width:250px;height:250px;background:rgba(6,182,212,.1);border-radius:50%}
+.cta-inner{position:relative;z-index:1}
+.cta-eyebrow{font-size:.78rem;font-weight:700;color:var(--p2);text-transform:uppercase;letter-spacing:.1em;margin-bottom:14px}
+.cta-title{font-family:'Poppins',sans-serif;font-size:clamp(1.8rem,3.5vw,2.7rem);font-weight:800;color:#fff;margin-bottom:16px}
+.cta-sub{font-size:1rem;color:rgba(255,255,255,.65);margin-bottom:36px;max-width:480px;margin-left:auto;margin-right:auto}
+.btn-whatsapp{background:linear-gradient(135deg,#25D366,#128C7E);color:#fff;padding:15px 32px;border-radius:14px;font-family:'Poppins',sans-serif;font-weight:700;font-size:1rem;text-decoration:none;display:inline-flex;align-items:center;gap:10px;box-shadow:0 6px 24px rgba(37,211,102,.3);transition:transform .2s,box-shadow .2s}
+.btn-whatsapp:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(37,211,102,.4)}
+.cta-details{display:flex;justify-content:center;gap:48px;margin-top:40px;flex-wrap:wrap}
+.cta-detail{text-align:center}
+.cta-detail .label{font-size:.75rem;font-weight:600;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:.06em;display:block;margin-bottom:4px}
+.cta-detail .value{font-family:'Poppins',sans-serif;font-weight:600;font-size:1rem;color:#fff}
+
+/* Footer */
+footer{background:#0A1A35;padding:48px 0 28px;border-top:1px solid rgba(255,255,255,.06)}
+.footer-grid{display:grid;grid-template-columns:1fr 1fr 1fr;gap:36px;margin-bottom:36px}
+.footer-logo{font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:700;color:#fff;display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.footer-desc{font-size:.85rem;color:rgba(255,255,255,.5);line-height:1.7}
+.footer-col h4{font-family:'Poppins',sans-serif;font-size:.9rem;font-weight:600;color:#fff;margin-bottom:14px}
+.footer-col p,.footer-col address{font-size:.85rem;color:rgba(255,255,255,.55);line-height:1.8;font-style:normal}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.07);padding-top:24px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:10px}
+.footer-bottom p{font-size:.8rem;color:rgba(255,255,255,.4)}
+
+/* Rev animation base */
+.rev{opacity:0;transform:translateY(32px)}
+
+/* Responsive */
+@media(max-width:900px){
+  .services-grid{grid-template-columns:repeat(2,1fr)}
+  .why-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav-links,.nav-cta{display:none}
+  .hamburger{display:flex}
+  nav.open .nav-links{display:flex;flex-direction:column;position:absolute;top:68px;left:0;right:0;background:#fff;padding:16px 24px 20px;gap:0;border-bottom:1.5px solid var(--bord);box-shadow:0 8px 24px rgba(0,0,0,.08)}
+  nav.open .nav-links a{padding:10px 0;border-bottom:1px solid var(--bord)}
+  nav.open .nav-cta{display:block;margin:12px 24px 0;text-align:center}
+  .hero-grid{grid-template-columns:1fr;gap:36px;text-align:center}
+  .hero-sub{max-width:100%;margin-left:auto;margin-right:auto}
+  .hero-btns{justify-content:center}
+  .services-grid,.doctors-grid,.testi-grid{grid-template-columns:1fr}
+  .why-grid{grid-template-columns:1fr 1fr}
+  .footer-grid{grid-template-columns:1fr}
+  .footer-bottom{flex-direction:column;text-align:center}
+  .cta-details{gap:24px}
+}
+@media(max-width:480px){
+  .why-grid{grid-template-columns:1fr}
+  .hero-btns{flex-direction:column;align-items:center}
+  .cta-details{flex-direction:column;gap:16px}
+}
+</style>
+</head>
+<body>
+
+<!-- Progress bar -->
+<div id="progress-bar"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="#" class="nav-logo"><span class="tooth">🦷</span> DentaSmile</a>
+    <div class="nav-links">
+      <a href="#servicios">Servicios</a>
+      <a href="#doctores">Doctores</a>
+      <a href="#testimonios">Testimonios</a>
+      <a href="#contacto">Contacto</a>
+    </div>
+    <a href="https://wa.me/528112000000?text=Hola!%20Quiero%20agendar%20una%20cita%20en%20DentaSmile" target="_blank" rel="noopener noreferrer" class="nav-cta">Agendar Cita</a>
+    <div class="hamburger" id="hamburger" aria-label="Menú" role="button" tabindex="0">
+      <span></span><span></span><span></span>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-deco d1">🦷</div>
+  <div class="hero-deco d2">✦</div>
+  <div class="hero-deco d3">✦</div>
+  <div class="hero-deco d4">🦷</div>
+  <div class="hero-deco d5">✦</div>
+  <div class="container">
+    <div class="hero-grid">
+      <!-- Left -->
+      <div>
+        <div class="hero-badge" id="hero-badge">Clínica dental de confianza en Monterrey</div>
+        <h1 class="hero-title" id="hero-title">Tu sonrisa,<br><span>nuestra pasión</span></h1>
+        <p class="hero-sub" id="hero-sub">Ofrecemos atención dental integral con tecnología de vanguardia y un equipo especializado comprometido con tu salud bucal y bienestar.</p>
+        <div class="hero-btns" id="hero-btns">
+          <a href="https://wa.me/528112000000?text=Hola!%20Quiero%20agendar%20una%20cita%20en%20DentaSmile" target="_blank" rel="noopener noreferrer" class="btn-primary">
+            <span>💬</span> Agendar por WhatsApp
+          </a>
+          <a href="#servicios" class="btn-outline">Ver Servicios</a>
+        </div>
+      </div>
+      <!-- Right – Stats card -->
+      <div id="hero-stats">
+        <div class="stats-card">
+          <div class="stats-header">
+            <span class="big-emoji">🏆</span>
+            <p>DentaSmile, Monterrey</p>
+          </div>
+          <div class="stats-grid">
+            <div class="stat-item">
+              <div class="stat-icon">😁</div>
+              <div>
+                <span class="stat-num" data-target="500">0</span>
+                <span class="stat-label">Pacientes satisfechos</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">📅</div>
+              <div>
+                <span class="stat-num" data-target="10">0</span>
+                <span class="stat-label">Años de experiencia</span>
+              </div>
+            </div>
+            <div class="stat-item">
+              <div class="stat-icon">🔬</div>
+              <div>
+                <span class="stat-num" style="font-size:1rem;color:var(--p)">Tecnología</span>
+                <span class="stat-label">de vanguardia digital</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- SERVICIOS -->
+<section id="servicios" class="section section-alt">
+  <div class="container">
+    <div class="section-head rev">
+      <p class="section-eyebrow">Nuestros servicios</p>
+      <h2 class="section-title">Todo lo que necesitas para tu salud dental</h2>
+      <p class="section-sub">Contamos con tratamientos completos realizados por especialistas certificados con la mejor tecnología disponible.</p>
+    </div>
+    <div class="services-grid">
+      <div class="service-card rev">
+        <span class="svc-icon">✨</span>
+        <div class="svc-name">Limpieza Dental</div>
+        <div class="svc-price">$450 MXN</div>
+        <p class="svc-desc">Profilaxis profesional para eliminar sarro y placa bacteriana. Incluye pulido y flúor. Recomendada cada 6 meses.</p>
+        <a href="https://wa.me/528112000000?text=Hola!%20Me%20interesa%20la%20Limpieza%20Dental" target="_blank" rel="noopener noreferrer" class="svc-btn">Consultar &rarr;</a>
+      </div>
+      <div class="service-card rev">
+        <span class="svc-icon">😬</span>
+        <div class="svc-name">Brackets Metálicos</div>
+        <div class="svc-price">Desde $12,000 MXN</div>
+        <p class="svc-desc">Ortodoncia convencional para alinear tu dentadura de manera eficaz y duradera. Plan de pago disponible.</p>
+        <a href="https://wa.me/528112000000?text=Hola!%20Me%20interesan%20los%20Brackets" target="_blank" rel="noopener noreferrer" class="svc-btn">Consultar &rarr;</a>
+      </div>
+      <div class="service-card rev">
+        <span class="svc-icon">🌟</span>
+        <div class="svc-name">Blanqueamiento Dental</div>
+        <div class="svc-price">$2,500 MXN</div>
+        <p class="svc-desc">Blanqueamiento de consultorio con lámpara LED de alta potencia. Resultados visibles desde la primera sesión.</p>
+        <a href="https://wa.me/528112000000?text=Hola!%20Me%20interesa%20el%20Blanqueamiento%20Dental" target="_blank" rel="noopener noreferrer" class="svc-btn">Consultar &rarr;</a>
+      </div>
+      <div class="service-card rev">
+        <span class="svc-icon">🔩</span>
+        <div class="svc-name">Implantes Dentales</div>
+        <div class="svc-price">Desde $18,000 MXN</div>
+        <p class="svc-desc">Implantes de titanio con garantía de 2 años. Solución permanente y natural para dientes faltantes.</p>
+        <a href="https://wa.me/528112000000?text=Hola!%20Me%20interesan%20los%20Implantes%20Dentales" target="_blank" rel="noopener noreferrer" class="svc-btn">Consultar &rarr;</a>
+      </div>
+      <div class="service-card rev">
+        <span class="svc-icon">💎</span>
+        <div class="svc-name">Carillas de Porcelana</div>
+        <div class="svc-price">Desde $5,500 MXN / ud.</div>
+        <p class="svc-desc">Láminas ultrafinas de porcelana para transformar tu sonrisa. Estética superior con mínima invasión.</p>
+        <a href="https://wa.me/528112000000?text=Hola!%20Me%20interesan%20las%20Carillas%20de%20Porcelana" target="_blank" rel="noopener noreferrer" class="svc-btn">Consultar &rarr;</a>
+      </div>
+      <div class="service-card rev">
+        <span class="svc-icon">🦠</span>
+        <div class="svc-name">Endodoncia</div>
+        <div class="svc-price">$3,500 MXN</div>
+        <p class="svc-desc">Tratamiento de conductos con técnica rotacional y anestesia local avanzada. Salva tu diente sin dolor.</p>
+        <a href="https://wa.me/528112000000?text=Hola!%20Me%20interesa%20la%20Endodoncia" target="_blank" rel="noopener noreferrer" class="svc-btn">Consultar &rarr;</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- POR QUÉ ELEGIRNOS -->
+<section id="porque" class="section">
+  <div class="container">
+    <div class="section-head rev">
+      <p class="section-eyebrow">¿Por qué elegirnos?</p>
+      <h2 class="section-title">La diferencia DentaSmile</h2>
+      <p class="section-sub">Nos distinguimos por la calidad, calidez y compromiso con cada uno de nuestros pacientes.</p>
+    </div>
+    <div class="why-grid">
+      <div class="why-card rev">
+        <div class="why-icon">🖥️</div>
+        <div class="why-big">3D</div>
+        <div class="why-title">Tecnología digital</div>
+        <p class="why-desc">Diagnóstico digital, radiografía panorámica y escáner intraoral 3D para mayor precisión.</p>
+      </div>
+      <div class="why-card rev">
+        <div class="why-icon">💉</div>
+        <div class="why-big">0</div>
+        <div class="why-title">Sin dolor</div>
+        <p class="why-desc">Técnicas de anestesia avanzadas y sedación consciente para que tu visita sea completamente cómoda.</p>
+      </div>
+      <div class="why-card rev">
+        <div class="why-icon">🛡️</div>
+        <div class="why-big">2 años</div>
+        <div class="why-title">Garantía incluida</div>
+        <p class="why-desc">Todos nuestros tratamientos protésicos e implantes cuentan con garantía de 2 años sin costo adicional.</p>
+      </div>
+      <div class="why-card rev">
+        <div class="why-icon">🕐</div>
+        <div class="why-big">7/7</div>
+        <div class="why-title">Horarios flexibles</div>
+        <p class="why-desc">Abiertos de lunes a domingo, con citas desde las 8 a.m. hasta las 8 p.m. para adaptarnos a ti.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- DOCTORES -->
+<section id="doctores" class="section section-alt">
+  <div class="container">
+    <div class="section-head rev">
+      <p class="section-eyebrow">Nuestro equipo</p>
+      <h2 class="section-title">Especialistas a tu servicio</h2>
+      <p class="section-sub">Cada uno de nuestros doctores cuenta con posgrado, certificación y años de experiencia clínica.</p>
+    </div>
+    <div class="doctors-grid">
+      <div class="doctor-card rev">
+        <div class="doc-avatar">👨‍⚕️</div>
+        <div class="doc-name">Dr. Alejandro Reyes</div>
+        <span class="doc-spec">Ortodoncista</span>
+        <p class="doc-bio">Especialista en ortodoncia y ortopedia maxilofacial con más de 12 años de experiencia en Monterrey. Certificado por el Colegio de Ortodoncistas de México.</p>
+      </div>
+      <div class="doctor-card rev">
+        <div class="doc-avatar">👩‍⚕️</div>
+        <div class="doc-name">Dra. Carmen Fuentes</div>
+        <span class="doc-spec">Implantología</span>
+        <p class="doc-bio">Pionera en implantología digital en el noreste de México. Formada en la UANL con especialidad en cirugía oral y posgrado en España.</p>
+      </div>
+      <div class="doctor-card rev">
+        <div class="doc-avatar">👨‍⚕️</div>
+        <div class="doc-name">Dr. Luis Morales</div>
+        <span class="doc-spec">Odontología General</span>
+        <p class="doc-bio">Director clínico de DentaSmile con amplia trayectoria en rehabilitación oral, endodoncia y atención preventiva familiar.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TESTIMONIOS -->
+<section id="testimonios" class="section">
+  <div class="container">
+    <div class="section-head rev">
+      <p class="section-eyebrow">Testimonios</p>
+      <h2 class="section-title">Lo que dicen nuestros pacientes</h2>
+      <p class="section-sub">Más de 500 sonrisas transformadas en Monterrey. Estas son algunas de sus experiencias.</p>
+    </div>
+    <div class="testi-grid">
+      <div class="testi-card rev">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote">"Me realizaron los implantes dentales y quedé encantada. El Dr. Reyes y todo el equipo me hicieron sentir muy segura desde el primer momento. El resultado superó mis expectativas."</p>
+        <div class="testi-author">
+          <div class="author-avatar">M</div>
+          <div>
+            <div class="author-name">María González</div>
+            <div class="author-tag">Implantes dentales</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card rev">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote">"Llevé a toda mi familia para la limpieza y revisión general. Precio justo, trato excelente y puntualidad. Ya agendé el blanqueamiento para mí. Totalmente recomendado en Monterrey."</p>
+        <div class="testi-author">
+          <div class="author-avatar">R</div>
+          <div>
+            <div class="author-name">Roberto Salinas</div>
+            <div class="author-tag">Limpieza y revisión</div>
+          </div>
+        </div>
+      </div>
+      <div class="testi-card rev">
+        <div class="stars">★★★★★</div>
+        <p class="testi-quote">"Tenía mucho miedo a la endodoncia pero la Dra. Fuentes me explicó todo el proceso. Sin dolor, rápido y profesional. Ahora estoy con los brackets y muy contenta con mi avance."</p>
+        <div class="testi-author">
+          <div class="author-avatar">L</div>
+          <div>
+            <div class="author-name">Laura Treviño</div>
+            <div class="author-tag">Endodoncia · Ortodoncia</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- AGENDAR CITA -->
+<section id="contacto">
+  <div class="container">
+    <div class="cta-inner">
+      <p class="cta-eyebrow">Contáctanos hoy</p>
+      <h2 class="cta-title">¿Listo para transformar tu sonrisa?</h2>
+      <p class="cta-sub">Agenda tu consulta de valoración sin costo. Respondemos en menos de 10 minutos por WhatsApp.</p>
+      <a href="https://wa.me/528112000000?text=Hola!%20Quiero%20agendar%20una%20cita%20en%20DentaSmile" target="_blank" rel="noopener noreferrer" class="btn-whatsapp">
+        <span>💬</span> Agendar por WhatsApp
+      </a>
+      <div class="cta-details">
+        <div class="cta-detail">
+          <span class="label">Teléfono</span>
+          <span class="value">(81) 1200-0000</span>
+        </div>
+        <div class="cta-detail">
+          <span class="label">Horario</span>
+          <span class="value">Lun – Sáb, 8am – 8pm</span>
+        </div>
+        <div class="cta-detail">
+          <span class="label">Domingos</span>
+          <span class="value">10am – 4pm</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <div class="footer-logo">🦷 DentaSmile</div>
+        <p class="footer-desc">Clínica Dental Integral comprometida con tu salud bucal y tu sonrisa. Tecnología moderna, trato humano.</p>
+      </div>
+      <div class="footer-col">
+        <h4>Ubicación</h4>
+        <address>
+          Av. Constitución 1500, Col. Centro<br>
+          Monterrey, NL, México, C.P. 64000<br><br>
+          <strong style="color:rgba(255,255,255,.7)">Tel:</strong> (81) 1200-0000
+        </address>
+      </div>
+      <div class="footer-col">
+        <h4>Horario de Atención</h4>
+        <p>
+          Lunes – Viernes: 8:00 – 20:00<br>
+          Sábado: 9:00 – 19:00<br>
+          Domingo: 10:00 – 16:00<br><br>
+          Urgencias dentales disponibles.
+        </p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2025 DentaSmile – Clínica Dental Integral. Todos los derechos reservados.</p>
+      <p>Monterrey, NL, México &nbsp;|&nbsp; 🦷 Cedula Prof. 12345678</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+// ─── Scroll progress bar ───────────────────────────────────────────
+const bar = document.getElementById('progress-bar');
+window.addEventListener('scroll', () => {
+  const pct = (window.scrollY / (document.body.scrollHeight - window.innerHeight)) * 100;
+  bar.style.width = pct + '%';
+});
+
+// ─── Hamburger menu ────────────────────────────────────────────────
+const nav = document.getElementById('nav');
+const hamburger = document.getElementById('hamburger');
+hamburger.addEventListener('click', () => nav.classList.toggle('open'));
+hamburger.addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' ') nav.classList.toggle('open'); });
+document.querySelectorAll('.nav-links a').forEach(a => {
+  a.addEventListener('click', () => nav.classList.remove('open'));
+});
+
+// ─── GSAP ──────────────────────────────────────────────────────────
+gsap.registerPlugin(ScrollTrigger);
+
+// Hero entrance timeline
+const heroTL = gsap.timeline({ defaults: { ease: 'power3.out' } });
+heroTL
+  .from('#hero-badge',  { opacity: 0, y: 24, duration: .7 })
+  .from('#hero-title',  { opacity: 0, y: 32, duration: .75 }, '-=.35')
+  .from('#hero-sub',    { opacity: 0, y: 24, duration: .7  }, '-=.4')
+  .from('#hero-btns',   { opacity: 0, y: 20, duration: .65 }, '-=.4')
+  .from('#hero-stats',  { opacity: 0, x: 40, duration: .8  }, '-=.5');
+
+// Counter animation
+function animateCounter(el) {
+  const target = +el.dataset.target;
+  if (!target) return;
+  const suffix = target >= 500 ? '+' : '';
+  let start = 0;
+  const step = target / 60;
+  const timer = setInterval(() => {
+    start = Math.min(start + step, target);
+    el.textContent = Math.floor(start) + (start >= target ? suffix : '');
+    if (start >= target) clearInterval(timer);
+  }, 16);
+}
+
+// Run counters when stats card visible
+const counters = document.querySelectorAll('.stat-num[data-target]');
+const statsObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      counters.forEach(animateCounter);
+      statsObserver.disconnect();
+    }
+  });
+}, { threshold: .4 });
+const statsCard = document.querySelector('.stats-card');
+if (statsCard) statsObserver.observe(statsCard);
+
+// Scroll reveal for .rev elements
+gsap.utils.toArray('.rev').forEach(el => {
+  gsap.fromTo(el,
+    { opacity: 0, y: 36 },
+    {
+      opacity: 1, y: 0, duration: .75, ease: 'power2.out',
+      scrollTrigger: {
+        trigger: el,
+        start: 'top 88%',
+        toggleActions: 'play none none none'
+      }
+    }
+  );
+});
+</script>
+</body>
+</html>
