@@ -1516,63 +1516,7 @@ revEls.forEach((el, i) => {
 });
 
 // ─── GSAP SETUP ────────────────────────────────────────────
-gsap.registerPlugin(ScrollTrigger);
-
-// Stagger services
-gsap.from('.service-card', {
-  scrollTrigger: {
-    trigger: '#services .services-grid',
-    start: 'top 80%',
-    once: true
-  },
-  y: 40,
-  opacity: 0,
-  duration: 0.5,
-  stagger: 0.08,
-  ease: 'power2.out'
-});
-
-// Stagger team
-gsap.from('.team-card', {
-  scrollTrigger: {
-    trigger: '#team .team-grid',
-    start: 'top 80%',
-    once: true
-  },
-  y: 40,
-  opacity: 0,
-  duration: 0.5,
-  stagger: 0.12,
-  ease: 'power2.out'
-});
-
-// Stagger testimonials
-gsap.from('.testimonial-card', {
-  scrollTrigger: {
-    trigger: '.testimonials-grid',
-    start: 'top 80%',
-    once: true
-  },
-  y: 40,
-  opacity: 0,
-  duration: 0.5,
-  stagger: 0.12,
-  ease: 'power2.out'
-});
-
-// Stagger pricing
-gsap.from('.price-card', {
-  scrollTrigger: {
-    trigger: '#pricing .pricing-grid',
-    start: 'top 80%',
-    once: true
-  },
-  y: 40,
-  opacity: 0,
-  duration: 0.5,
-  stagger: 0.12,
-  ease: 'power2.out'
-});
+// Section reveals handled by .rev + IntersectionObserver (see revObserver below)
 
 // ─── NUMBER COUNTERS ───────────────────────────────────────
 function animateCounter(el, target, suffix) {
