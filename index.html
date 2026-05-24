@@ -72,6 +72,16 @@ ul { list-style: none; }
   transform: translateY(0);
 }
 
+/* ─── HERO ENTRANCE ANIMATIONS ──────────────────────────────── */
+@keyframes heroFadeUp { from { opacity:0; transform:translateY(30px) } to { opacity:1; transform:none } }
+@keyframes heroSlideLeft { from { opacity:0; transform:translateX(40px) } to { opacity:1; transform:none } }
+.hero-label { animation: heroFadeUp .6s .05s both }
+.hero-title { animation: heroFadeUp .9s .1s both }
+.hero-sub { animation: heroFadeUp .6s .3s both }
+.hero-actions { animation: heroFadeUp .5s .45s both }
+.hero-stat-card { animation: heroSlideLeft .7s .35s both }
+.hero-badge { animation: heroSlideLeft .6s .5s both }
+
 /* ─── NAV ───────────────────────────────────────────────────── */
 nav {
   position: fixed;
@@ -1097,17 +1107,17 @@ footer {
 <!-- HERO -->
 <section id="hero">
   <div class="hero-left">
-    <div class="hero-label rev">// Clínica Dental Certificada</div>
-    <h1 class="hero-title rev">
+    <div class="hero-label">// Clínica Dental Certificada</div>
+    <h1 class="hero-title">
       SALUD<br>
       <span class="line-accent">DENTAL</span><br>
       REAL.
     </h1>
-    <p class="hero-sub rev">
+    <p class="hero-sub">
       Más de una década cuidando tu sonrisa con tecnología de vanguardia,
       atención personalizada y resultados que hablan por sí solos.
     </p>
-    <div class="hero-actions rev">
+    <div class="hero-actions">
       <a href="https://wa.me/525571831083" target="_blank" rel="noopener noreferrer" class="btn-primary">
         Agendar cita →
       </a>
@@ -1116,7 +1126,7 @@ footer {
   </div>
 
   <div class="hero-right">
-    <div class="hero-stat-card rev">
+    <div class="hero-stat-card">
       <div class="stat-header">// Nuestra trayectoria en números</div>
       <div class="stats-row">
         <div class="stat-item">
@@ -1134,11 +1144,11 @@ footer {
       </div>
     </div>
 
-    <div class="hero-badge rev">
+    <div class="hero-badge">
       Tecnología digital | Resultados garantizados
     </div>
 
-    <div class="rev" style="border: var(--border); background: var(--white); padding: 24px 28px; max-width: 440px; width: 100%; box-shadow: var(--shadow);">
+    <div style="border: var(--border); background: var(--white); padding: 24px 28px; max-width: 440px; width: 100%; box-shadow: var(--shadow);" class="hero-schedule">
       <div style="font-size:11px; letter-spacing:0.15em; text-transform:uppercase; opacity:0.5; margin-bottom:10px;">// Horario de atención</div>
       <div style="display:flex; justify-content:space-between; align-items:center; padding: 8px 0; border-bottom: 1px solid #eee;">
         <span style="font-size:12px;">Lunes — Viernes</span>
@@ -1619,25 +1629,7 @@ function handleFormSubmit(e) {
   );
 }
 
-// ─── HERO ENTRANCE ANIMATION ───────────────────────────────
-gsap.from('.hero-title', {
-  y: 60, opacity: 0, duration: 0.9, ease: 'power3.out', delay: 0.1
-});
-gsap.from('.hero-label', {
-  y: 20, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.05
-});
-gsap.from('.hero-sub', {
-  y: 30, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.3
-});
-gsap.from('.hero-actions', {
-  y: 20, opacity: 0, duration: 0.5, ease: 'power2.out', delay: 0.45
-});
-gsap.from('.hero-stat-card', {
-  x: 40, opacity: 0, duration: 0.7, ease: 'power2.out', delay: 0.35
-});
-gsap.from('.hero-badge', {
-  x: 40, opacity: 0, duration: 0.6, ease: 'power2.out', delay: 0.5
-});
+// Hero entrance is handled by CSS keyframe animations (heroFadeUp / heroSlideLeft)
 </script>
 </body>
 </html>
